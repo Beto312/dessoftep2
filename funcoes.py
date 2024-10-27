@@ -1,4 +1,4 @@
-def define_posicoes(linha, coluna, orientacao, tamanho):
+def define_posicoes (linha, coluna, orientacao, tamanho):
     posicoes = []
     if orientacao == 'vertical':
         for i in range(tamanho):
@@ -35,7 +35,7 @@ def posiciona_frota (frota):
 
                 tabuleiro[x][y] = 1
     return tabuleiro
-def afundados(frota, tabuleiro):
+def afundados (frota, tabuleiro):
     navios_afundados = 0
     for lista_navios in frota.values():
         for navio in lista_navios:
@@ -47,3 +47,20 @@ def afundados(frota, tabuleiro):
             if total_posicoes == len(navio):
                 navios_afundados += 1
     return navios_afundados
+def posicao_valida (navios, linha, coluna, orientacao, tamanho):
+    nova_posicao = define_posicoes(linha, coluna, orientacao, tamanho)
+    for posicao_linha, posicao_coluna in nova_posicao:
+        if posicao_linha < 0:
+            return False
+        elif posicao_linha >= 10:
+            return False
+        elif posicao_coluna < 0:
+            return False
+        elif posicao_coluna >= 10:
+            return False
+    for lista_navios in navios.values():
+        for navio in lista_navios:
+            for posicao in navio:
+                if posicao in nova_posicao:
+                    return False
+    return True
