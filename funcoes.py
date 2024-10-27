@@ -21,16 +21,12 @@ def faz_jogada (tabuleiro, linha, coluna):
         tabuleiro[linha][coluna] = "-"
     return tabuleiro
 def posiciona_frota (frota):
-    # montar um tabuleiro vazio
     tabuleiro = []
     for i in range(10):
         linha = []
         for j in range(10):
             linha.append(0)
         tabuleiro.append(linha)
-
-    # montar todas as linhas
-    # posicionar os navios no lugar    for chave, valor in frota.items():
     for chave, valor in frota.items():
         for i in range(len(valor)):
             for j in range(len(valor[i])):
@@ -39,3 +35,15 @@ def posiciona_frota (frota):
 
                 tabuleiro[x][y] = 1
     return tabuleiro
+def afundados(frota, tabuleiro):
+    navios_afundados = 0
+    for lista_navios in frota.values():
+        for navio in lista_navios:
+            total_posicoes = 0
+            for posicao in navio:
+                linha, coluna = posicao
+                if tabuleiro[linha][coluna] == 'X':
+                    total_posicoes += 1
+            if total_posicoes == len(navio):
+                navios_afundados += 1
+    return navios_afundados
